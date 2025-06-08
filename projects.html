@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Projects</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .projects-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 50px 20px;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .filters {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filters button {
+      background-color: #222;
+      border: 1px solid #58a6ff;
+      color: #58a6ff;
+      margin: 0 10px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .filters button:hover,
+    .filters button.active {
+      background-color: #58a6ff;
+      color: #fff;
+    }
+
+    .project {
+      display: none;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 25px;
+      margin: 20px 0;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .project img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-top: 10px;
+    }
+
+    .project h2 {
+      margin: 0;
+      color: #58a6ff;
+    }
+
+    .project p {
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    .project a {
+      display: inline-block;
+      margin-top: 10px;
+      color: #58a6ff;
+    }
+
+    .project.show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="resume.html">Resume</a>
+    <a href="projects.html">Projects</a>
+    <a href="analytics.html">Skills</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="projects-container">
+    <h1 style="color:#fff;">💡 My Portfolio Projects</h1>
+
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+      <button class="filter-btn" onclick="filterProjects('tableau')">Tableau</button>
+      <button class="filter-btn" onclick="filterProjects('powerbi')">Power BI</button>
+      <button class="filter-btn" onclick="filterProjects('ml')">Machine Learning</button>
+    </div>
+
+    <div class="project tableau show">
+      <h2>📊 Global Labor Trends: Tableau Dashboard</h2>
+      <p>Visualizes global labor, GDP, and education using heatmaps and scatter plots for policy impact analysis.</p>
+      
+      <a href="resume/tableau_project.twbx" download>📥 Download .twbx</a>
+    </div>
+
+    <div class="project ml show">
+      <h2>🔐 Financial Fraud Detection System</h2>
+      <p>Python-based model to detect anomalies in financial transactions. Includes Power BI visual front-end.</p>
+      
+    </div>
+
+    <div class="project powerbi show">
+      <h2>🩺 Smart Health Monitoring for the Elderly</h2>
+      <p>Real-time patient tracking using IoT and R, with Power BI dashboards for caregivers and alerts.</p>
+      
+    </div>
+
+    <div class="project powerbi show">
+      <h2>📈 Retail Performance Tracker – Power BI</h2>
+      <p>Interactive dashboard with DAX formulas for sales trends, inventory KPIs, and regional performance.</p>
+      
+    </div>
+  </div>
+
+  <script>
+    function filterProjects(type) {
+      const all = document.querySelectorAll('.project');
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      all.forEach(proj => {
+        if (type === 'all' || proj.classList.contains(type)) {
+          proj.classList.add('show');
+        } else {
+          proj.classList.remove('show');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
