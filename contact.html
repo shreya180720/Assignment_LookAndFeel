@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Me</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .contact-container {
+      max-width: 600px;
+      margin: 80px auto;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      animation: fadeIn 1.2s ease-in-out;
+      text-align: center;
+    }
+
+    .contact-container h1 {
+      color: #58a6ff;
+      margin-bottom: 20px;
+    }
+
+    .contact-container p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #fff;
+      margin: 12px 0;
+    }
+
+    .contact-container a {
+      color: #58a6ff;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .contact-container a:hover {
+      text-decoration: underline;
+    }
+
+    .icons {
+      margin-top: 20px;
+    }
+
+    .icons a {
+      margin: 0 15px;
+      display: inline-block;
+      font-size: 1.8rem;
+    }
+
+    .icons img {
+      width: 32px;
+      height: 32px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="resume.html">Resume</a>
+    <a href="projects.html">Projects</a>
+    <a href="analytics.html">Skills</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="contact-container">
+    <h1>Get in Touch</h1>
+    <p><strong>Phone:</strong> +1-8135343795</p>
+    <p><strong>Email:</strong> <a href="mailto:shreyadanda18@gmail.com">shreyadanda18@gmail.com</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/sri-shreya-danda-2b27141a2/" target="_blank">linkedin.com/in/sri-shreya-danda-2b27141a2</a></p>
+
+    <div class="icons" style="display:none;">
+      <a href="mailto:shreyadanda18@gmail.com" target="_blank"><img src="https://img.icons8.com/fluency/48/gmail.png" alt="Email" /></a>
+      <a href="https://www.linkedin.com/in/sri-shreya-danda-2b27141a2/" target="_blank"><img src="https://img.icons8.com/color/48/linkedin.png" alt="LinkedIn" /></a>
+    </div>
+  </div>
+  <section class="crud-section">
+    <p>
+  Whether you are an instructor, recruiter, or fellow learner, I hope this platform offers a meaningful glimpse into my journey and skills. I am always open to thoughtful feedback and collaboration opportunities.
+</p>
+
+<p>
+  Feel free to connect and thank you for visiting. Here's to continuous growth, meaningful work, and new connections!
+</p>
+
+    <form id="postForm">
+      <input type="text" id="Name" placeholder="Name" required />
+      <textarea id="content" placeholder="Feedback" required></textarea>
+      <button type="submit">Add Note</button>
+    </form>
+
+    <h3>Notes</h3>
+    <ul id="postList"></ul>
+  </section>
+  <script>
+  // Load saved notes
+  window.onload = function () {
+    displayNotes();
+  };
+
+  // Add Note
+  document.getElementById("postForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = document.getElementById("Name").value;
+    const content = document.getElementById("content").value;
+
+    if (name && content) {
+      const notes = JSON.parse(localStorage.getItem("notes")) || [];
+      notes.push({ name, content });
+      localStorage.setItem("notes", JSON.stringify(notes));
+      displayNotes();
+      document.getElementById("postForm").reset();
+    }
+  });
+
+  // Display Notes
+  function displayNotes() {
+    const notes = JSON.parse(localStorage.getItem("notes")) || [];
+    const postList = document.getElementById("postList");
+    postList.innerHTML = "";
+
+    notes.forEach((note, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <strong>${note.name}</strong><br>
+        ${note.content}<br>
+        <button onclick="editNote(${index})">Edit</button>
+        <button onclick="deleteNote(${index})">Delete</button>
+      `;
+      postList.appendChild(li);
+    });
+  }
+
+  // Edit Note
+  function editNote(index) {
+    const notes = JSON.parse(localStorage.getItem("notes")) || [];
+    const note = notes[index];
+    document.getElementById("Name").value = note.name;
+    document.getElementById("content").value = note.content;
+    deleteNote(index);
+  }
+
+  // Delete Note
+  function deleteNote(index) {
+    const notes = JSON.parse(localStorage.getItem("notes")) || [];
+    notes.splice(index, 1);
+    localStorage.setItem("notes", JSON.stringify(notes));
+    displayNotes();
+  }
+</script>
+</body>
+</html>
